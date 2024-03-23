@@ -18,9 +18,9 @@ ans = ''
 link = ''
 score = 0
 
-OPENAI_API_KEY = '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'
+OPENAI_API_KEY = 'OPENAI_API_KEY'
 os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
-TOKEN = "7164701854:AAHPcGIa6wj1j4Is2u9mO1vCt3ZUGPt8BY8"
+TOKEN = "TOKEN"
 BASE_URL = f"https://api.telegram.org/bot{TOKEN}"
 WAITSTATE, FINDLINK, GETQUESTION, GETANSWER, ENDCONVO = range(5)
 client = OpenAI()
