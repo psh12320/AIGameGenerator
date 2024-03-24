@@ -22,7 +22,7 @@ async def start_chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data['score'] = 0
     await update.message.reply_text("Send the YouTube video link here! \n"
                                     "The link should follow this format: https://www.youtube.com/watch?v=....\n"
-                                    "The YouTube must have subtitles!")
+                                    "The YouTube video must have subtitles!")
     return FINDLINK
 
 
