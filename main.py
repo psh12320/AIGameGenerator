@@ -1,10 +1,3 @@
-# TODO:
-# 1. Get Transcript (DONE)
-# 2. Trivia based on Transcript (DONE)
-# 3. Use OpenAI to generate quiz questions (DONE)
-# 4. Fill-in-the-pronoun or noun, basically grammar check (DONE)
-# 5. Put everything into a Telegram bot (DONE)
-
 from youtube_transcript_api import YouTubeTranscriptApi
 from openai import OpenAI
 import os
@@ -12,29 +5,29 @@ import json
 from telegram.ext import MessageHandler, CommandHandler, filters, ConversationHandler, ApplicationBuilder, ContextTypes, \
     CallbackQueryHandler, CallbackContext
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove
+from dotenv import load_dotenv
 
-qns = ''
-ans = ''
-link = ''
-score = 0
-
-OPENAI_API_KEY = 'OPENAI_API_KEY'
-os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
-TOKEN = "TOKEN"
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+TOKEN = os.getenv("TOKEN")
 BASE_URL = f"https://api.telegram.org/bot{TOKEN}"
-WAITSTATE, FINDLINK, GETQUESTION, GETANSWER, ENDCONVO = range(5)
+FINDLINK, GETQUESTION, GETANSWER, ENDCONVO = range(4)
 client = OpenAI()
 
 
 async def start_chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    context.user_data['qns'] = ''
+    context.user_data['ans'] = ''
+    context.user_data['link'] = ''
+    context.user_data['score'] = 0
     await update.message.reply_text("Send the YouTube video link here! \n")
     return FINDLINK
 
 
 async def find_link(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    global link
+    link = context.user_data.get('link', '')
     if link == '':
         link = update.message.text
+        context.user_data['link'] = link
         print(link)
     reply_keyboard = [["Trivia", "Grammar"]]
     await update.message.reply_text(
@@ -46,15 +39,11 @@ async def find_link(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     return GETQUESTION
 
-async def wait_state(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    response = update.message.text
-
-
 
 async def get_question(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    global qns
-    global ans
-    global link
+    qns = context.user_data.get('qns', '')
+    ans = context.user_data.get('ans', '')
+    link = context.user_data.get('link', '')
     print("First", qns)
     print(ans)
     reply = update.message.text
@@ -66,15 +55,17 @@ async def get_question(update: Update, context: ContextTypes.DEFAULT_TYPE):
             print(ans)
         elif reply == "Grammar":
             qns, ans = generate_grammar_qns(get_transcript(link))
+    context.user_data['qns'] = qns
+    context.user_data['ans'] = ans
     print("Before awaiting:", qns)
     await update.message.reply_text(qns[0], reply_markup=ReplyKeyboardRemove())
     return GETANSWER
 
 
 async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    global qns
-    global ans
-    global score
+    qns = context.user_data.get('qns', '')
+    ans = context.user_data.get('ans', '')
+    score = context.user_data.get('score', 0)
     answer = update.message.text
     curr_qn = qns[0]
     curr_ans = ans[0]
@@ -100,7 +91,10 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Your answer is correct! 👏")
     elif bool == "FALSE":
         await update.message.reply_text(f"The correct answer is: {curr_ans}")
+    context.user_data['score'] = score
+    context.user_data['qns'] = qns[1:]
     qns = qns[1:]
+    context.user_data['ans'] = ans[1:]
     ans = ans[1:]
     if qns == [] and ans == []:
         await update.message.reply_text(f"You scored {score} out of 5. Well done and try better in the next quiz! 😊")
@@ -238,7 +232,6 @@ def main() -> None:
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler('start', start_chat)],
         states={
-            WAITSTATE: [MessageHandler(filters.TEXT, wait_state)],
             FINDLINK: [MessageHandler(filters.TEXT, find_link)],
             GETQUESTION: [MessageHandler(filters.TEXT, get_question)],
             GETANSWER: [MessageHandler(filters.TEXT, check_answer)],
@@ -254,4 +247,3 @@ def main() -> None:
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     main()
-
