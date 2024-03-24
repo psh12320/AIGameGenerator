@@ -250,7 +250,10 @@ def generate_grammar_qns(transcript):
 
 async def wait_state(update: Update, context: ContextTypes.DEFAULT_TYPE):
     response = update.message.text
-    if response != "/cancel":
+    if response == "/cancel":
+        await update.message.reply_text("Current operation cancelled.\n"
+                                        "Click /start to try a new game!")
+    else:
         await update.message.reply_text("I'm not sure what you mean. \nClick /start to try a new game!")
 
 

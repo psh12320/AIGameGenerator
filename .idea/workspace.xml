@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e5af6438-2b1a-4f7f-9af2-d5b1a3aa7805" name="Changes" comment="updating wait_state">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="e5af6438-2b1a-4f7f-9af2-d5b1a3aa7805" name="Changes" comment="updated requirements for the youtube video link">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -157,7 +156,28 @@
       <option name="project" value="LOCAL" />
       <updated>1711284419832</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="updated requirements for the youtube video link">
+      <created>1711286514537</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1711286514537</updated>
+    </task>
+    <task id="LOCAL-00015" summary="updated requirements for the youtube video link">
+      <created>1711286562928</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1711286562928</updated>
+    </task>
+    <task id="LOCAL-00016" summary="updated requirements for the youtube video link">
+      <created>1711286664515</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1711286664515</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -181,6 +201,7 @@
     <MESSAGE value="removed ENDCONVO state" />
     <MESSAGE value="removed mentions of /game" />
     <MESSAGE value="updating wait_state" />
-    <option name="LAST_COMMIT_MESSAGE" value="updating wait_state" />
+    <MESSAGE value="updated requirements for the youtube video link" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated requirements for the youtube video link" />
   </component>
 </project>
