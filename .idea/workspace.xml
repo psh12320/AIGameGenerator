@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e5af6438-2b1a-4f7f-9af2-d5b1a3aa7805" name="Changes" comment="- removing global vars&#10;- using data from user's context">
+    <list default="true" id="e5af6438-2b1a-4f7f-9af2-d5b1a3aa7805" name="Changes" comment="latest commit">
+      <change afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -86,7 +88,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711274879098</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="latest commit">
+      <created>1711275223681</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1711275223681</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -102,8 +111,8 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="latest commit" />
     <MESSAGE value="- removing global vars&#10;- using data from user's context" />
-    <option name="LAST_COMMIT_MESSAGE" value="- removing global vars&#10;- using data from user's context" />
+    <MESSAGE value="latest commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="latest commit" />
   </component>
 </project>

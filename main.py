@@ -11,7 +11,7 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 TOKEN = os.getenv('TOKEN')
 BASE_URL = f"https://api.telegram.org/bot{TOKEN}"
-FINDLINK, GETQUESTION, GETANSWER, ENDCONVO = range(4)
+WAITSTATE, FINDLINK, GETQUESTION, GETANSWER, ENDCONVO = range(5)
 client = OpenAI()
 
 
@@ -26,10 +26,17 @@ async def start_chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def find_link(update: Update, context: ContextTypes.DEFAULT_TYPE):
     link = context.user_data.get('link', '')
-    if link == '':
-        link = update.message.text
-        context.user_data['link'] = link
-        print(link)
+    link = update.message.text
+    answer = False
+    while not answer:
+        bool_value = check_if_youtube_link(link)
+        if bool_value:
+            answer = True
+        else:
+            await update.message.reply_text("This is not a YouTube video link. Try again!")
+            return FINDLINK
+    context.user_data['link'] = link
+    print(link)
     reply_keyboard = [["Trivia", "Grammar"]]
     await update.message.reply_text(
         "Type \'Trivia\' if you would like to test your understanding of the video. \n"
@@ -165,6 +172,21 @@ def generate_trivia_qns(transcript):
     answers = json_qa["answers"]
     return questions, answers
 
+def check_if_youtube_link(link):
+    chat_completion = client.chat.completions.create(
+        model='gpt-3.5-turbo',  # or 'gpt-3.5-turbo' depending on your preference
+        messages=[
+            {"role": "system",
+             "content": "You are given the following content. Check if it is a YouTube video link carefully and output either True or False."},
+            {"role": "user", "content": link}
+        ]
+    )
+    answer = chat_completion.choices[0].message.content
+    if answer == "True":
+        return True
+    else:
+        return False
+
 
 def generate_grammar_qns(transcript):
     chat_completion = client.chat.completions.create(
@@ -215,7 +237,13 @@ async def end_conversation(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if response == "/cancel":
         return ENDCONVO
     else:
-        return FINDLINK
+        return WAITSTATE
+
+
+async def wait_state(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    response = update.message.text
+    await update.message.reply_text("Send a new YouTube link, if you would like to continue to try a new game!")
+    return FINDLINK
 
 
 async def cancel(update: Update, context: CallbackContext):
@@ -233,15 +261,17 @@ def main() -> None:
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler('start', start_chat)],
         states={
+            WAITSTATE: [MessageHandler(filters.TEXT, wait_state)],
             FINDLINK: [MessageHandler(filters.TEXT, find_link)],
             GETQUESTION: [MessageHandler(filters.TEXT, get_question)],
             GETANSWER: [MessageHandler(filters.TEXT, check_answer)],
-            ENDCONVO: [MessageHandler(filters.TEXT, end_conversation)]
+            ENDCONVO: [CommandHandler('cancel', end_conversation)]
         },
         fallbacks=[CommandHandler('cancel', cancel)]
     )
 
     application.add_handler(conv_handler)
+    # application.add_handler(MessageHandler(filters.TEXT, find_link))
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 
 
