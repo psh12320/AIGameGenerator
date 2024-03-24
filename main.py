@@ -15,6 +15,10 @@ WAITSTATE, FINDLINK, GETQUESTION, GETANSWER, ENDCONVO = range(5)
 client = OpenAI()
 
 
+async def start_bot(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("Click on /game to send a YouTube link and start a game!")
+
+
 async def start_chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data['qns'] = ''
     context.user_data['ans'] = ''
@@ -259,7 +263,7 @@ def main() -> None:
     application = ApplicationBuilder().token(TOKEN).build()
 
     conv_handler = ConversationHandler(
-        entry_points=[CommandHandler('start', start_chat)],
+        entry_points=[CommandHandler('game', start_chat)],
         states={
             WAITSTATE: [MessageHandler(filters.TEXT, wait_state)],
             FINDLINK: [MessageHandler(filters.TEXT, find_link)],
@@ -271,6 +275,7 @@ def main() -> None:
     )
 
     application.add_handler(conv_handler)
+    application.add_handler(MessageHandler(filters.TEXT, start_bot))
     # application.add_handler(MessageHandler(filters.TEXT, find_link))
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 
