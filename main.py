@@ -113,7 +113,7 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ans = ans[1:]
     if qns == [] and ans == []:
         await update.message.reply_text(f"You scored {score} out of 5. Well done and try better in the next quiz! 😊")
-        await update.message.reply_text("Click on /game to send a new YouTube link and pick a game! \n"
+        await update.message.reply_text("Click on /start to send a new YouTube link and pick a game! \n"
                                         "Send /cancel if you would like to end this conversation.")
         return ConversationHandler.END
     else:
