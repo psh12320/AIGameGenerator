@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e5af6438-2b1a-4f7f-9af2-d5b1a3aa7805" name="Changes" comment="update find_link">
+    <list default="true" id="e5af6438-2b1a-4f7f-9af2-d5b1a3aa7805" name="Changes" comment="update /game command">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -114,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711282795258</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="update /game command">
+      <created>1711283088147</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1711283088147</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -134,6 +141,7 @@
     <MESSAGE value="latest commit" />
     <MESSAGE value="add /game command" />
     <MESSAGE value="update find_link" />
-    <option name="LAST_COMMIT_MESSAGE" value="update find_link" />
+    <MESSAGE value="update /game command" />
+    <option name="LAST_COMMIT_MESSAGE" value="update /game command" />
   </component>
 </project>

@@ -11,7 +11,7 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 TOKEN = os.getenv('TOKEN')
 BASE_URL = f"https://api.telegram.org/bot{TOKEN}"
-WAITSTATE, FINDLINK, GETQUESTION, GETANSWER, ENDCONVO = range(5)
+WAITSTATE, FINDLINK, GETQUESTION, GETANSWER = range(4)
 client = OpenAI()
 
 
@@ -36,7 +36,7 @@ async def find_link(update: Update, context: ContextTypes.DEFAULT_TYPE):
         link = update.message.text
         bool_value = check_if_youtube_link(link)
         if link == "/cancel":
-            return ENDCONVO
+            return ConversationHandler.END
         elif bool_value:
             answer = True
         elif not bool_value:
@@ -115,7 +115,7 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(f"You scored {score} out of 5. Well done and try better in the next quiz! 😊")
         await update.message.reply_text("Click on /game to send a new YouTube link and pick a game! \n"
                                         "Send /cancel if you would like to end this conversation.")
-        return ENDCONVO
+        return ConversationHandler.END
     else:
         if qns != [] and ans != []:
             await update.message.reply_text(qns[0])
@@ -244,7 +244,7 @@ def generate_grammar_qns(transcript):
 async def end_conversation(update: Update, context: ContextTypes.DEFAULT_TYPE):
     response = update.message.text
     if response == "/cancel":
-        return ENDCONVO
+        return ConversationHandler.END
     else:
         return WAITSTATE
 
@@ -268,19 +268,18 @@ def main() -> None:
     application = ApplicationBuilder().token(TOKEN).build()
 
     conv_handler = ConversationHandler(
-        entry_points=[CommandHandler('game', start_chat)],
+        entry_points=[CommandHandler('start', start_chat)],
         states={
             WAITSTATE: [MessageHandler(filters.TEXT, wait_state)],
             FINDLINK: [MessageHandler(filters.TEXT, find_link)],
             GETQUESTION: [MessageHandler(filters.TEXT, get_question)],
-            GETANSWER: [MessageHandler(filters.TEXT, check_answer)],
-            ENDCONVO: [CommandHandler('cancel', end_conversation)]
+            GETANSWER: [MessageHandler(filters.TEXT, check_answer)]
         },
         fallbacks=[CommandHandler('cancel', cancel)]
     )
 
     application.add_handler(conv_handler)
-    application.add_handler(MessageHandler(filters.TEXT, start_bot))
+    # application.add_handler(MessageHandler(filters.TEXT, start_bot))
     # application.add_handler(MessageHandler(filters.TEXT, find_link))
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 
