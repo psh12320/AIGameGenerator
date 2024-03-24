@@ -7,8 +7,9 @@ from telegram.ext import MessageHandler, CommandHandler, filters, ConversationHa
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from dotenv import load_dotenv
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-TOKEN = os.getenv("TOKEN")
+load_dotenv()
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+TOKEN = os.getenv('TOKEN')
 BASE_URL = f"https://api.telegram.org/bot{TOKEN}"
 FINDLINK, GETQUESTION, GETANSWER, ENDCONVO = range(4)
 client = OpenAI()
