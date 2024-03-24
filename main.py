@@ -33,10 +33,13 @@ async def find_link(update: Update, context: ContextTypes.DEFAULT_TYPE):
     link = update.message.text
     answer = False
     while not answer:
+        link = update.message.text
         bool_value = check_if_youtube_link(link)
-        if bool_value:
+        if link == "/cancel":
+            return ENDCONVO
+        elif bool_value:
             answer = True
-        else:
+        elif not bool_value:
             await update.message.reply_text("This is not a YouTube video link. Try again!")
             return FINDLINK
     context.user_data['link'] = link
