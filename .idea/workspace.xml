@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e5af6438-2b1a-4f7f-9af2-d5b1a3aa7805" name="Changes" comment="update /game command">
+    <list default="true" id="e5af6438-2b1a-4f7f-9af2-d5b1a3aa7805" name="Changes" comment="removed mentions of /game">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -121,7 +121,21 @@
       <option name="project" value="LOCAL" />
       <updated>1711283088147</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="removed ENDCONVO state">
+      <created>1711283460644</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1711283460644</updated>
+    </task>
+    <task id="LOCAL-00010" summary="removed mentions of /game">
+      <created>1711283606576</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1711283606576</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -142,6 +156,8 @@
     <MESSAGE value="add /game command" />
     <MESSAGE value="update find_link" />
     <MESSAGE value="update /game command" />
-    <option name="LAST_COMMIT_MESSAGE" value="update /game command" />
+    <MESSAGE value="removed ENDCONVO state" />
+    <MESSAGE value="removed mentions of /game" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed mentions of /game" />
   </component>
 </project>

@@ -11,7 +11,7 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 TOKEN = os.getenv('TOKEN')
 BASE_URL = f"https://api.telegram.org/bot{TOKEN}"
-WAITSTATE, FINDLINK, GETQUESTION, GETANSWER = range(4)
+FINDLINK, GETQUESTION, GETANSWER = range(3)
 client = OpenAI()
 
 
@@ -241,18 +241,16 @@ def generate_grammar_qns(transcript):
     return questions, answers
 
 
-async def end_conversation(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    response = update.message.text
-    if response == "/cancel":
-        return ConversationHandler.END
-    else:
-        return WAITSTATE
+# async def end_conversation(update: Update, context: ContextTypes.DEFAULT_TYPE):
+#    response = update.message.text
+#    if response == "/cancel":
+#        return ConversationHandler.END
+#    else:
+#        return WAITSTATE
 
 
 async def wait_state(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    response = update.message.text
-    await update.message.reply_text("Send a new YouTube link, if you would like to continue to try a new game!")
-    return FINDLINK
+    await update.message.reply_text("Click /start to try a new game!")
 
 
 async def cancel(update: Update, context: CallbackContext):
@@ -270,7 +268,6 @@ def main() -> None:
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler('start', start_chat)],
         states={
-            WAITSTATE: [MessageHandler(filters.TEXT, wait_state)],
             FINDLINK: [MessageHandler(filters.TEXT, find_link)],
             GETQUESTION: [MessageHandler(filters.TEXT, get_question)],
             GETANSWER: [MessageHandler(filters.TEXT, check_answer)]
@@ -279,8 +276,7 @@ def main() -> None:
     )
 
     application.add_handler(conv_handler)
-    # application.add_handler(MessageHandler(filters.TEXT, start_bot))
-    # application.add_handler(MessageHandler(filters.TEXT, find_link))
+    application.add_handler(MessageHandler(filters.ALL, wait_state))
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 
 
