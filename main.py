@@ -113,7 +113,7 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ans = ans[1:]
     if qns == [] and ans == []:
         await update.message.reply_text(f"You scored {score} out of 5. Well done and try better in the next quiz! 😊")
-        await update.message.reply_text("Click on any button to send a new YouTube link and pick a game! \n"
+        await update.message.reply_text("Click on /game to send a new YouTube link and pick a game! \n"
                                         "Send /cancel if you would like to end this conversation.")
         return ENDCONVO
     else:
@@ -179,12 +179,14 @@ def generate_trivia_qns(transcript):
     answers = json_qa["answers"]
     return questions, answers
 
+
 def check_if_youtube_link(link):
     chat_completion = client.chat.completions.create(
         model='gpt-3.5-turbo',  # or 'gpt-3.5-turbo' depending on your preference
         messages=[
             {"role": "system",
-             "content": "You are given the following content. Check if it is a YouTube video link carefully and output either True or False."},
+             "content": "You are given the following content. Check if it is a YouTube video link carefully and "
+                        "output either True or False."},
             {"role": "user", "content": link}
         ]
     )
