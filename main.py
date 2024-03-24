@@ -15,16 +15,13 @@ FINDLINK, GETQUESTION, GETANSWER = range(3)
 client = OpenAI()
 
 
-async def start_bot(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Click on /game to send a YouTube link and start a game!")
-
-
 async def start_chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data['qns'] = ''
     context.user_data['ans'] = ''
     context.user_data['link'] = ''
     context.user_data['score'] = 0
-    await update.message.reply_text("Send the YouTube video link here! \n")
+    await update.message.reply_text("Send the YouTube video link here! \n"
+                                    "The link should follow this format: https://www.youtube.com/watch?v=....")
     return FINDLINK
 
 
@@ -40,7 +37,8 @@ async def find_link(update: Update, context: ContextTypes.DEFAULT_TYPE):
         elif bool_value:
             answer = True
         elif not bool_value:
-            await update.message.reply_text("This is not a YouTube video link. Try again!")
+            await update.message.reply_text("This is not a YouTube video link. \nThe link should follow this format: "
+                                            "https://www.youtube.com/watch?v=....\n Try again!")
             return FINDLINK
     context.user_data['link'] = link
     print(link)
