@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e5af6438-2b1a-4f7f-9af2-d5b1a3aa7805" name="Changes" comment="removed mentions of /game">
+    <list default="true" id="e5af6438-2b1a-4f7f-9af2-d5b1a3aa7805" name="Changes" comment="updating wait_state">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -135,7 +135,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711283606576</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="updating wait_state">
+      <created>1711284143622</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1711284143622</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -158,6 +165,7 @@
     <MESSAGE value="update /game command" />
     <MESSAGE value="removed ENDCONVO state" />
     <MESSAGE value="removed mentions of /game" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed mentions of /game" />
+    <MESSAGE value="updating wait_state" />
+    <option name="LAST_COMMIT_MESSAGE" value="updating wait_state" />
   </component>
 </project>
